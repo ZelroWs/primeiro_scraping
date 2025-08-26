@@ -52,7 +52,10 @@ PySocks==1.7.1
 python-dateutil==2.9.0.post0
 python-dotenv==1.1.1
 pytz==2025.2
+<<<<<<< HEAD
 pywin32
+=======
+>>>>>>> ca8d6ba4f7cf3bab33392234a16f59e7c4384e5e
 pyzmq==27.0.1
 requests==2.32.4
 selenium==4.34.2
