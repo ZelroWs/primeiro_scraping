@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard de Livros</title>
+    <link rel="shortcut icon" href="{{ url_for('static', filename='icone.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    <h1>Dashboard de Livros</h1>
+    <h2>Coletando os dados de
+        <a href="https://books.toscrape.com/" target="_blank">Books to Scrape <img src="https://books.toscrape.com/static/oscar/favicon.ico" alt="Books to Scrape" wid></a>
+    </h2>
+    <form method="POST">
+        <label>Selecione os arquivos CSV:</label><br>
+            {% for arq in arquivos %}
+                <input type="checkbox" name="arquivo" value="{{ arq }}"
+                    {% if arq in arquivo_selecionado %}checked{% endif %}>
+                {{ arq }}<br>
+            {% endfor %}
+    <button type="submit" name="acao" value="analisar">Analisar</button>
+    <button type="submit" name="acao" value="coletar" class="coletar-btn">
+    Coletar dados dos livros
+</button>
+    </form>
+         
+{% if mensagem %}
+    <p style="color:green;">{{ mensagem }}</p>
+{% endif %}
+    {% if estatisticas %}
+        <h2>Estatísticas</h2>
+        <ul>
+            {% if estatisticas %}
+        <ul>
+        {% for key, value in estatisticas.items() %}
+            {% if key != 'media_por_avaliacao' %}
+                <li>{{ key }} de custo: {{ value }} R$</li>
+            {% endif %}
+        {% endfor %}
+        </ul>
+        {% endif %}
+        {% if media_por_avaliacao_html %}
+            <h3>Média por Avaliação</h3>
+            {{ media_por_avaliacao_html|safe }}
+        {% endif %}       
+        </ul>     
+{% if arquivo_selecionado %}
+    <h2>Gráficos</h2>
+    <form method="get" action="">
+        <a href="{{ url_for('grafico', tipo='distribuicao', arquivo=arquivo_selecionado) }}" target="_blank"><button type="button">Distribuição dos Preços</button></a>
+        <a href="{{ url_for('grafico', tipo='avaliacao', arquivo=arquivo_selecionado) }}" target="_blank"><button type="button">Livros por Avaliação</button></a>
+        <a href="{{ url_for('grafico', tipo='caros', arquivo=arquivo_selecionado) }}" target="_blank"><button type="button">Top 5 Mais Caros</button></a>
+        <a href="{{ url_for('grafico', tipo='baratos', arquivo=arquivo_selecionado) }}" target="_blank"><button type="button">Top 5 Mais Baratos</button></a>
+        <a href="{{ url_for('grafico', tipo='estatisticas', arquivo=arquivo_selecionado) }}" target="_blank"><button type="button">Estatísticas dos Preços</button></a>
+    </form>
+{% endif %}
+        <h2>Dados</h2>
+        {{ df.to_html()|safe }}
+    {% endif %}
+<script>
+document.querySelector('button[name="coletar"]').addEventListener('click', function(e) {
+    if (this.classList.contains('loading')) {
+        e.preventDefault();
+        return;
+    }    
+    this.classList.add('loading');
+    this.innerHTML = 'Coletando <span class="sr-only">...</span>';});
+</script>
+</body>
+</html>
