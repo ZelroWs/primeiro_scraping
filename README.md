@@ -2,6 +2,8 @@
 
 Um projeto de web scraping que coleta dados de livros do site [Books to Scrape](https://books.toscrape.com/) e realiza análises com Pandas, apresentando os resultados em uma aplicação Flask.
 
+Acesse o site em [Web Scraping & Data Analysis - Books to Scrape](https://primeiro-scraping-livros.onrender.com/)
+
 ## ✨ Funcionalidades
 
 - **🕷️ Web Scraping** automatizado do catálogo completo de livros
@@ -16,6 +18,10 @@ Um projeto de web scraping que coleta dados de livros do site [Books to Scrape](
 - **BeautifulSoup4** - Parsing e extração de dados HTML
 - **Requests** - Requisições HTTP para coletar as páginas
 - **Pandas** - Manipulação e análise de dados
+  
+### Conversão de Moeda
+- **AwesomeAPI** - API de câmbio para conversão EUR → BRL
+- **Integração em tempo real** com cotação atualizada
 
 ### Backend
 - **Flask** - Framework web para o dashboard
